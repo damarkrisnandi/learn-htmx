@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Learn H TMX</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>
+      hljs.highlightAll();
+    </script>
+  </head>
+  <body>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+    <header></header>
+
+    <main
+      class="mt-10 w-screen h-screen flex flex-col justify-center items-center"
+      hx-on=" htmx:configRequest: event.detail.headers=''; event.detail.headers['Content-Type']='application/x-www-form-urlencoded; charset=UTF-8'"
+    >
+      <p class="font-semibold text-xl">GET Example</p>
+      <div class="flex">
+        <button
+          class="bg-fuchsia-700 px-3 py-4 text-white hover:bg-fuchsia-200 hover:text-fuchsia-700 transition-all rounded-md mr-2"
+          hx-get="/data.json"
+          hx-swap="innerHTML"
+          hx-target="#showfile"
+        >
+          GET data.json
+        </button>
+        <button
+          class="bg-fuchsia-700 px-3 py-4 text-white hover:bg-fuchsia-200 hover:text-fuchsia-700 transition-all rounded-md"
+          hx-get="/person.json"
+          hx-swap="innerHTML"
+          hx-target="#showfile"
+        >
+          GET person.json
+        </button>
+      </div>
+      <pre
+        class="w-11/12 mt-2 flex justify-center items-center"
+      ><code class="language-json text-xs whitespace-nowrap w-full" id="showfile"></code></pre>
+      <!-- <pre id="showfile" class="w-11/12"></pre> -->
+
+      <!-- <form hx-post="/login" hx-include="[name='email']"> -->
+      <!--   <input type="email" name="email" class="px-2 py-3 bg-gray-200" /> -->
+      <!--   <input type="password" name="password" class="px2 py-3 bg-gray-200" /> -->
+      <!-- </form> -->
+
+      <!-- post with json body-->
+      <form
+        class="mt-10 flex flex-col justify-center items-center"
+        hx-post="/store"
+        hx-ext="json-enc"
+      >
+        <p class="font-semibold text-xl">POST Example</p>
+        <input
+          class="border-3 px-2 py-2 bg-gray-200 w-full"
+          id="title"
+          name="title"
+          type="text"
+          hx-post="/validate"
+          hx-trigger="change"
+        />
+        <button
+          type="submit"
+          class="bg-fuchsia-700 text-white py-3 px-2 rounded-md w-full mt-2"
+        >
+          POST store
+        </button>
+      </form>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>
